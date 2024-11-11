@@ -154,9 +154,9 @@
 
             <div class="part" style="overflow-y: auto">
                 <div class="instructions">
-                    <h1><img src="assets/mistletoe.png" style="vertical-align: middle" /> Secret Santa Generator</h1>
-                    <p>No signup, no email, no bullshit. Just a straightforward <a href="https://github.com/arcanis/secretsanta">open-source</a> tool to help you generate your secret santa pairings. One static page, and that's it.</p>
-                    <p>In the most common case (no exclusion rules, pair each guest with another at random), enter the name of your guests one line at a time. Once done, press "generate" and you're all set: send the generated links to your guests (by mail, chat, whatever floats your boat) and their pairing will be revealed to them (and only them) once they open the link.</p>
+                    <h1 id="title"><img src="assets/mistletoe.png" style="vertical-align: middle" /> Secret Santa Generator</h1>
+                    <p id="description">No signup, no email, no bullshit. Just a straightforward <a href="https://github.com/arcanis/secretsanta">open-source</a> tool to help you generate your secret santa pairings. One static page, and that's it.</p>
+                    <p id="instructions">In the most common case (no exclusion rules, pair each guest with another at random), enter the name of your guests one line at a time. Once done, press "generate" and you're all set: send the generated links to your guests (by mail, chat, whatever floats your boat) and their pairing will be revealed to them (and only them) once they open the link.</p>
                     <h2>Where does this tool come from?</h2>
                     <p>I wanted to make a Secret Santa over Facebook without having to reveal to anyone my guests email addresses (so nothing that would require a backend). I also wanted not to know who was paired with me, so I had to find a way to somehow obfuscate the information. And being a developer, well, my first thought was "Let's AES it, for fun and profits!". Classic.</p>
                 </div>
@@ -164,7 +164,7 @@
 
             <form id="form" class="part">
                 <textarea id="input" class="input" autofocus></textarea>
-                <button type="submit" class="generate">Generate your pairings</button>
+                <button id="button_generate" type="submit" class="generate">Generate your pairings</button>
                 <div id="result" class="result none"></div>
             </form>
 

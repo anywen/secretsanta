@@ -1,0 +1,11 @@
+{
+    "title": "Générateur de Secret Santa",
+    "description": "desc",
+    "instructions": "instructions",
+    "greeting": "Salut {name} ! Tu as été jumelé avec",
+    "good_luck": "Bonne chance !",
+    "error_no_match": "Nous n'avons pas pu trouver de correspondance pour {name} ! Appuyez sur 'Générer' pour réessayer ou retirez certaines exclusions.",
+    "start_own_secret_santa": "Vous voulez démarrer votre propre Secret Santa avec vos amis ? Cliquez ici pour commencer !",
+    "button_generate": "Générer les paires",
+    "error_pairing": "Nous n'avons pas pu trouver de correspondance pour {name} ! Appuyez sur « Générer » pour réessayer et, si cela ne fonctionne toujours pas, essayez de réduire certaines exclusions dans vos règles. Désolé pour le désagrément !"
+}

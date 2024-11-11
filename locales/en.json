@@ -1,0 +1,9 @@
+{
+    "title": "Secret Santa Generator",
+    "greeting": "Hi {name}! You've been paired with",
+    "good_luck": "Good luck!",
+    "error_no_match": "We haven't been able to find a match for {name}! Press 'Generate' to try again or remove some exclusions.",
+    "start_own_secret_santa": "Want to start your own Secret Santa with your friends? Click here to get started!",
+    "button_generate": "Generate your pairings",
+    "error_pairing": "We haven't been able to find a match for {name} '! Press \"Generate\" to try again and, if it still doesn't work, try removing some exclusions from your rules. Sorry for the inconvenience!"
+}

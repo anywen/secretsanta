@@ -88,24 +88,59 @@ SecretSanta.prototype.generate = function () {
 
     };
 
-    while ( Object.keys( candidatePairings ).length > 0 ) {
+    while (Object.keys(candidatePairings).length > 0) {
 
         var name = findNextGifter();
-
-        if ( candidatePairings[ name ].length === 0 )
-            throw new Error('We haven\'t been able to find a match for ' + name + '! Press "Generate" to try again and, if it still doesn\'t work, try removing some exclusions from your rules. Sorry for the inconvenience!');
-
-        var pairing = _.sample( candidatePairings[ name ] );
-        delete candidatePairings[ name ];
-
-        Object.keys( candidatePairings ).forEach( function ( name ) {
-            candidatePairings[ name ] = _.without( candidatePairings[ name ], pairing );
-        } );
-
-        pairings[ name ] = pairing;
-
+    
+        if (candidatePairings[name].length === 0) {
+            // Récupère le message d’erreur traduit depuis les données de traduction
+            const errorMessageTemplate = translations["error_pairing"] || 
+                'We haven\'t been able to find a match for ' + name + '! Press "Generate" to try again and, if it still doesn\'t work, try removing some exclusions from your rules. Sorry for the inconvenience!';
+    
+            // Remplace {name} par le nom de l’utilisateur
+            const errorMessage = errorMessageTemplate.replace("{name}", name);
+    
+            throw new Error(errorMessage);
+        }
+    
+        var pairing = _.sample(candidatePairings[name]);
+        delete candidatePairings[name];
+    
+        Object.keys(candidatePairings).forEach(function (name) {
+            candidatePairings[name] = _.without(candidatePairings[name], pairing);
+        });
+    
+        pairings[name] = pairing;
     }
 
     return pairings;
 
 };
+
+// Détermine la langue à partir de l'URL ou utilise une langue par défaut
+const lang = new URLSearchParams(window.location.search).get("lang") || "en";
+// Variable globale pour stocker les traductions
+let translations = {};
+// Fonction pour charger le fichier de traduction JSON
+function loadTranslations(lang) {
+    lang = "fr"; // Remplacez par "fr" pour tester en français
+    return fetch(`locales/${lang}.json`)
+        .then(response => response.json())
+        .then(data => {
+            translations = data; // Stocke les traductions globalement
+            applyTranslations(translations); // Applique les traductions si nécessaire
+        })
+        .catch(error => console.error("Error loading translations:", error));
+}
+
+// Applique les traductions aux éléments de la page
+function applyTranslations(translations) {
+    document.getElementById("title").innerText = translations["title"];
+    document.getElementById("description").innerText = translations["description"];
+    document.getElementById("instructions").innerText = translations["instructions"];
+    //document.getElementById("error_pairing").innerText = translations["error_pairing"];
+    document.getElementById("button_generate").innerText = translations["button_generate"];
+}
+
+// Appelle la fonction pour charger les traductions lors du chargement de la page
+loadTranslations(lang);
