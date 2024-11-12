@@ -44,7 +44,7 @@ SecretSanta.prototype.generate = function () {
 
     var pairings = Object.create( null );
     var candidatePairings = Object.create( null );
-
+    const santa = new SecretSanta();
     this.names.forEach( function ( name ) {
 
         if ( Object.prototype.hasOwnProperty.call( this.enforced, name ) ) {
@@ -75,7 +75,8 @@ SecretSanta.prototype.generate = function () {
 
         }
 
-    }, this );
+        
+    }, this);
 
     var findNextGifter = function () {
 
@@ -112,11 +113,32 @@ SecretSanta.prototype.generate = function () {
     
         pairings[name] = pairing;
     }
-
+    this.exportResults(pairings);
     return pairings;
 
 };
+SecretSanta.prototype.exportResults = function (pairings) {
+    let resultText = "Tirage de Noël\n";
+    
+    for (const [giver, receiver] of Object.entries(pairings)) {
+        resultText += `${giver} → ${receiver}\n`;
+        
+        // Enregistrer l'exclusion pour l'année suivante
+        if (!this.blacklists[giver]) {
+            this.blacklists[giver] = [];
+        }
+        if (!this.blacklists[giver].includes(receiver)) {
+            this.blacklists[giver].push(receiver);
+        }
+    }
 
+    // Créez un fichier Blob avec le contenu
+    const blob = new Blob([resultText], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'santa_results.txt';
+    link.click();
+};
 // Détermine la langue à partir de l'URL ou utilise une langue par défaut
 const lang = new URLSearchParams(window.location.search).get("lang") || "en";
 // Variable globale pour stocker les traductions
