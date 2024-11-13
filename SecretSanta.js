@@ -138,6 +138,15 @@ SecretSanta.prototype.exportResults = function (pairings) {
     link.href = URL.createObjectURL(blob);
     link.download = 'santa_results.txt';
     link.click();
+    // Récupère le contenu du textarea
+    const content = document.getElementById("input").value;
+
+    // Crée le fichier texte avec le contenu du textarea
+    const blob2 = new Blob([content], { type: 'text/plain' });
+    const link2 = document.createElement('a');
+    link2.href = URL.createObjectURL(blob2);
+    link2.download = 'exclusions.txt';  // Nom du fichier exporté
+    link2.click();
 };
 // Détermine la langue à partir de l'URL ou utilise une langue par défaut
 const lang = new URLSearchParams(window.location.search).get("lang") || "en";
